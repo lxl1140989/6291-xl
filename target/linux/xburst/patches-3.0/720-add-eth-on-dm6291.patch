@@ -1,0 +1,105 @@
+diff -urN a/arch/mips/xburst/soc-x1000/chip-x1000/canna/canna_v10/board.h b/arch/mips/xburst/soc-x1000/chip-x1000/canna/canna_v10/board.h
+--- a/arch/mips/xburst/soc-x1000/chip-x1000/canna/canna_v10/board.h	2016-07-20 18:02:00.288542409 +0800
++++ b/arch/mips/xburst/soc-x1000/chip-x1000/canna/canna_v10/board.h	2016-07-20 18:41:03.270392732 +0800
+@@ -42,6 +42,22 @@
+ #define GPIO_USB_DRVVBUS_LEVEL      HIGH_ENABLE
+ /* ****************************GPIO USB END********************************** */
+ 
++/* ****************************GPIO GMAC START******************************* */
++#ifdef CONFIG_JZ_MAC
++#ifndef CONFIG_MDIO_GPIO
++#ifdef CONFIG_JZGPIO_PHY_RESET
++#define GMAC_PHY_PORT_GPIO GPIO_PB(3)
++#define GMAC_PHY_PORT_START_FUNC GPIO_OUTPUT0
++#define GMAC_PHY_PORT_END_FUNC GPIO_OUTPUT1
++#define GMAC_PHY_DELAYTIME 100000
++#endif
++#else /* CONFIG_MDIO_GPIO */
++#define MDIO_MDIO_MDC_GPIO GPIO_PF(13)
++#define MDIO_MDIO_GPIO GPIO_PF(14)
++#endif
++#endif /* CONFIG_JZ4775_MAC */
++/* ****************************GPIO GMAC END********************************* */
++
+ /* ****************************GPIO AUDIO START****************************** */
+ #define GPIO_HP_MUTE        -1  /*hp mute gpio*/
+ #define GPIO_HP_MUTE_LEVEL  -1  /*vaild level*/
+diff -urN a/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/board_base.c b/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/board_base.c
+--- a/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/board_base.c	2016-07-20 18:02:00.292542409 +0800
++++ b/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/board_base.c	2016-07-20 18:41:44.435981588 +0800
+@@ -101,6 +101,11 @@
+ 	DEF_DEVICE(&jz_dwc_otg_device,0,0),
+ #endif
+ 
++#ifdef CONFIG_JZ_MAC
++ DEF_DEVICE(&jz_mii_bus, 0, 0),
++ DEF_DEVICE(&jz_mac_device, 0, 0),
++#endif
++
+ #if defined(CONFIG_JZ_INTERNAL_CODEC_V12)||defined(CONFIG_JZ_INTERNAL_CODEC_V13)
+ 	DEF_DEVICE(&jz_codec_device, &codec_data, sizeof(struct snd_codec_data)),
+ #endif
+diff -urN a/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/board_base.h b/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/board_base.h
+--- a/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/board_base.h	2016-07-20 18:02:00.288542409 +0800
++++ b/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/board_base.h	2016-07-20 18:42:11.361071797 +0800
+@@ -53,6 +53,11 @@
+ extern struct platform_device jz_spi_gpio_device;
+ #endif
+ 
++#ifdef CONFIG_JZ_MAC
++extern struct platform_device jz_mii_bus;
++extern struct platform_device jz_mac_device;
++#endif
++
+ #ifdef CONFIG_JZ_EFUSE_V11
+ extern struct jz_efuse_platform_data jz_efuse_pdata;
+ #endif
+diff -urN a/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/misc.c b/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/misc.c
+--- a/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/misc.c	2016-07-20 18:02:00.292542409 +0800
++++ b/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/misc.c	2016-07-20 18:43:01.210569529 +0800
+@@ -19,6 +19,45 @@
+ //#include <sound/jz-aic.h>
+ #include "board_base.h"
+ 
++
++#ifdef CONFIG_JZ_MAC
++#ifndef CONFIG_MDIO_GPIO
++#ifdef CONFIG_JZGPIO_PHY_RESET
++static struct jz_gpio_phy_reset gpio_phy_reset = {
++ .port = GMAC_PHY_PORT_GPIO / 32,
++ .pin = GMAC_PHY_PORT_GPIO % 32,
++ .start_func = GMAC_PHY_PORT_START_FUNC,
++ .end_func = GMAC_PHY_PORT_END_FUNC,
++ .delaytime_usec = GMAC_PHY_DELAYTIME,
++};
++#endif
++struct platform_device jz_mii_bus = {
++ .name = "jz_mii_bus",
++#ifdef CONFIG_JZGPIO_PHY_RESET
++ .dev.platform_data = &gpio_phy_reset,
++#endif
++};
++#else /* CONFIG_MDIO_GPIO */
++static struct mdio_gpio_platform_data mdio_gpio_data = {
++ .mdc = MDIO_MDIO_MDC_GPIO,
++ .mdio = MDIO_MDIO_GPIO,
++ .phy_mask = 0,
++ .irqs = { 0 },
++};
++ 
++struct platform_device jz_mii_bus = {
++ .name = "mdio-gpio",
++ .dev.platform_data = &mdio_gpio_data,
++};
++#endif /* CONFIG_MDIO_GPIO */
++struct platform_device jz_mac_device = {
++ .name = "jz_mac",
++ .dev.platform_data = &jz_mii_bus,
++};
++#endif /* CONFIG_JZ_MAC */
++
++
++
+ #ifdef CONFIG_JZ_EFUSE_V11
+ struct jz_efuse_platform_data jz_efuse_pdata = {
+             /* supply 2.5V to VDDQ */

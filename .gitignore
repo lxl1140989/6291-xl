@@ -1,0 +1,10 @@
+.svn
+dl/
+build_dir/
+project/
+uboot/u-boot
+uboot/u-boot-dm6291
+bin/
+tmp/
+staging_dir/
+burning/
