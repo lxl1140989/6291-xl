@@ -1,0 +1,17 @@
+--- a/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/spi_bus.c
++++ b/arch/mips/xburst/soc-x1000/chip-x1000/canna/common/spi_bus.c
+@@ -13,10 +13,11 @@
+ #define SIZE_BOOTLOADER		0x30000	 	/* 192K */
+ #define SIZE_FACTORY		0x10000		/* 64K */ 
+ #define SIZE_KERNEL			0x200000 	/* 2M */
+-//#define SIZE_ROOTFS		0xB80000 	/* 11.5M */
+-#define SIZE_ROOTFS			0x800000 	/* 8M */
++//#define SIZE_ROOTFS			0x800000 	/* 8M */
++#define SIZE_ROOTFS			0x9B0000 	/* 9920K */
+ #define SIZE_USRDATA		0x80000  	/* 512K */
+-#define SIZE_BACKUP			0x5B0000  	/* 5824K */
++//#define SIZE_BACKUP			0x5B0000  	/* 5824K */
++#define SIZE_BACKUP			0x400000  	/* 4M */
+ #define SIZE_ERASE_FLAG		0x10000		/* 64K */
+ 
+ struct mtd_partition jz_mtd_partition1[] = {
