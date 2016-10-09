@@ -71,21 +71,22 @@ ifeq ($(1),squashfs)
 		echo "Error: $(BIN_DIR)/$(IMG_PREFIX)-uImage.bin.lzma is too big" >&2; \
 		exit 1; \
 	fi
-	
-	if [ `stat -c%s "$(BIN_DIR)/$(IMG_PREFIX)-root.$(1)"` -gt 8388608 ]; then \
+	#0x9B0000
+	if [ `stat -c%s "$(BIN_DIR)/$(IMG_PREFIX)-root.$(1)"` -gt 10158080 ]; then \
 		echo "Error: $(BIN_DIR)/$(IMG_PREFIX)-root.$(1) is too big" >&2; \
 		exit 1; \
 	fi
-	
-	if [ `stat -c%s "$(TOPDIR)/mk_x1000_bin/backup-system-nor-update-fw.bin"` -gt 5963776 ]; then \
+	#4M
+	if [ `stat -c%s "$(TOPDIR)/mk_x1000_bin/backup-system-nor-update-fw.bin"` -gt 4194304 ]; then \
 		echo "Error: $(TOPDIR)/mk_x1000_bin/backup-system-nor-update-fw.bin is too big" >&2; \
 		exit 1; \
 	fi
 	
 	dd if=$(BIN_DIR)/$(IMG_PREFIX)-uImage.bin.lzma of=$(BIN_DIR)/uImage_tmp.bin  bs=1k conv=notrunc count=256
 	md5sum $(BIN_DIR)/uImage_tmp.bin | cut -d ' ' -f1 > $(BIN_DIR)/uImage_md5_tmp.txt
-		
-	tr '\000' '\377' < /dev/zero | dd of=$(BIN_DIR)/$(NOR_UPDATE_FW) bs=1024 count=10240 status=noxfer
+	
+	#0xBB0000
+	tr '\000' '\377' < /dev/zero | dd of=$(BIN_DIR)/$(NOR_UPDATE_FW) bs=1024 count=11968 status=noxfer
 	dd if=$(BIN_DIR)/$(IMG_PREFIX)-uImage.bin.lzma of=$(BIN_DIR)/$(NOR_UPDATE_FW) conv=notrunc status=noxfer
 	dd if=$(BIN_DIR)/$(IMG_PREFIX)-root.$(1) of=$(BIN_DIR)/$(NOR_UPDATE_FW) bs=1M seek=2 conv=notrunc status=noxfer
 	dd if=$(BIN_DIR)/uImage_md5_tmp.txt of=$(BIN_DIR)/$(NOR_UPDATE_FW) seek=2097120 bs=1 conv=notrunc count=32
@@ -95,7 +96,7 @@ ifeq ($(1),squashfs)
 	#dd if=$(BIN_DIR)/$(IMG_PREFIX)-uImage.bin.lzma of=$(BIN_DIR)/$(NOR_16MB) bs=1024 seek=256 conv=notrunc status=noxfer
 	#dd if=$(BIN_DIR)/$(IMG_PREFIX)-root.$(1) of=$(BIN_DIR)/$(NOR_16MB) bs=1024 seek=2304 conv=notrunc status=noxfer
 	dd if=$(BIN_DIR)/$(NOR_UPDATE_FW) of=$(BIN_DIR)/$(NOR_16MB) bs=1024 seek=256 conv=notrunc status=noxfer
-	dd if=$(TOPDIR)/mk_x1000_bin/backup-system-nor-update-fw.bin of=$(BIN_DIR)/$(NOR_16MB) bs=1024 seek=10496 conv=notrunc status=noxfer
+	dd if=$(TOPDIR)/mk_x1000_bin/backup-system-nor-update-fw.bin of=$(BIN_DIR)/$(NOR_16MB) bs=1024 seek=12224 conv=notrunc status=noxfer
 	
 	rm $(BIN_DIR)/uImage_tmp.bin 
 	rm $(BIN_DIR)/uImage_md5_tmp.txt
