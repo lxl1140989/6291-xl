@@ -9,4 +9,5 @@ init_network.sh
 
 updatefw &
 
+led_ctl &
 exit 0
