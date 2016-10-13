@@ -33,22 +33,30 @@
 // #include <linux/leds.h>
 // #include "ralink_gpio.h"
 
-
-#define LED_BLUE 			GPIO_PC(26)  //blue led , 5G
-#define LED_GREEN                GPIO_PC(25)  //green led , 2.4G
+//R 24,G 25,B 26
+#define LED_R		GPIO_PC(24)  //blue led , 5G
+#define LED_G		GPIO_PC(25)  //green led , 2.4G
+#define LED_B		GPIO_PC(26)  //green led , 2.4G
 
 static struct gpio_led gpio_leds[] = {
         {
-                .name   = "longsys:blue:led",
-                .gpio   = LED_BLUE,
-                .active_low = 1,
+                .name   = "system:led:red",
+                .gpio   = LED_R,
+                .active_low = 0,
                 //.default_state = LEDS_GPIO_DEFSTATE_ON,
 				.default_state = LEDS_GPIO_DEFSTATE_KEEP,
         },
         {
-                .name   = "longsys:green:led",
-                .gpio   = LED_GREEN,
-                .active_low = 1,
+                .name   = "system:led:green",
+                .gpio   = LED_G,
+                .active_low = 0,
+                //.default_state = LEDS_GPIO_DEFSTATE_OFF,
+				.default_state = LEDS_GPIO_DEFSTATE_KEEP,
+        },
+        {
+                .name   = "system:led:blue",
+                .gpio   = LED_B,
+                .active_low = 0,
                 //.default_state = LEDS_GPIO_DEFSTATE_OFF,
 				.default_state = LEDS_GPIO_DEFSTATE_KEEP,
         },
@@ -74,7 +82,7 @@ int __init led_init(void)
 	// gpiomode |= (1<<0);  //clear bit[0] WLAN_LED
 	// *(volatile u32 *)(RALINK_REG_GPIOMODE2) = cpu_to_le32(gpiomode);
 	platform_device_register(&leds_gpio);
-	printk(">>>>>>>>>>register my wifi led<<<<<<<<<<<<<<<<<\r\n");
+	printk("register led driver\r\n");
 	return 0;
 }
 
