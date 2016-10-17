@@ -8,7 +8,7 @@
 #include "uci_for_cgi.h"
 #define FW_DEV "/dev/mtdblock5"
 
-#define FW_LEN 10485760
+#define FW_LEN 12255232
 
 #define MNT_PATH "/tmp/mnt"
 
@@ -224,9 +224,13 @@ int main(int argc, char const *argv[])
 	system("sync");
 	system("echo 3 >/proc/sys/vm/drop_caches");
 
-	system("echo timer > /sys/class/leds/longsys\:blue\:led/trigger ");
-	system("echo 1000 > /sys/class/leds/longsys\:blue\:led/delay_on ");		
-	system("echo 1000 > /sys/class/leds/longsys\:blue\:led/delay_off ");
+	
+	system("echo 0 > /sys/class/leds/system\:led\:red/brightness");
+	system("echo 0 > /sys/class/leds/system\:led\:green/brightness");
+
+	system("echo timer > /sys/class/leds/system\:led\:blue/trigger ");
+	system("echo 1000 > /sys/class/leds/system\:led\:blue/delay_on ");		
+	system("echo 1000 > /sys/class/leds/system\:led\:blue/delay_off ");
 	
 	system("sysupgrade -F /tmp/fwupgrade &");
 	
