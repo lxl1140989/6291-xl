@@ -8,7 +8,7 @@
 #include "uci_for_cgi.h"
 #define FW_DEV "/dev/mtdblock5"
 
-#define FW_LEN 10485760
+#define FW_LEN 12255232
 
 #define MNT_PATH "/tmp/mnt"
 
