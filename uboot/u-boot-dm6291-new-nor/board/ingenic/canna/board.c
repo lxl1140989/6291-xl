@@ -617,7 +617,7 @@ int led_init_backup_system(unsigned char wifimode)
 
 	gpio_request(LED_R , "red led");
 	gpio_direction_output(LED_R , 0);
-	gpio_set_value(LED_R, 0);
+	gpio_set_value(LED_R, 1);
 	
 	gpio_request(LED_G , "led green");
 	gpio_direction_output(LED_G , 0);
@@ -625,7 +625,7 @@ int led_init_backup_system(unsigned char wifimode)
 
 	gpio_request(LED_B , "led blue");
 	gpio_direction_output(LED_B , 0);
-	gpio_set_value(LED_B, 1);
+	gpio_set_value(LED_B, 0);
 
 }
 

@@ -109,12 +109,15 @@ int check_system_start_normal(void)
 		{
 			char *argv[2];
 			char addr_str[11];
-			memset(flag,0xFF,sizeof(flag));
-			sfc_nor_write(ERASE_FLAG_ADDR, 16, flag, 1);
+			//memset(flag,0xFF,sizeof(flag));
+			//sfc_nor_write(ERASE_FLAG_ADDR, 16, flag, 1);
 			enter_sys_flag = 1;
 		}
-		airdisk_flag_buf[7]++;
-		sfc_nor_write(ERASE_FLAG_ADDR, 16, airdisk_flag_buf, 1);
+		else
+		{
+			airdisk_flag_buf[7]++;
+			sfc_nor_write(ERASE_FLAG_ADDR, 16, airdisk_flag_buf, 1);
+		}
 	}
 	else
 	{
