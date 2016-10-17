@@ -36,7 +36,7 @@
 /* ****************************GPIO USB START******************************** */
 #define GPIO_USB_ID             GPIO_PB(4) /*GPIO_PD(2)*/
 #define GPIO_USB_ID_LEVEL       LOW_ENABLE
-#define GPIO_USB_DETE           GPIO_PC(24) /*GPIO_PB(8)*/
+#define GPIO_USB_DETE           GPIO_PC(27) /*GPIO_PB(8)*/
 #define GPIO_USB_DETE_LEVEL     LOW_ENABLE
 #define GPIO_USB_DRVVBUS        GPIO_PB(25)
 #define GPIO_USB_DRVVBUS_LEVEL      HIGH_ENABLE
