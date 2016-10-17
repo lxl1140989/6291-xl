@@ -32,8 +32,8 @@ define Build/Compile
 endef
 
 define Package/erase_airdiskflag/install
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/erase_airdiskflag.init $(1)/etc/init.d/erase_airdiskflag
+#	$(INSTALL_DIR) $(1)/etc/init.d
+#	$(INSTALL_BIN) ./files/erase_airdiskflag.init $(1)/etc/init.d/erase_airdiskflag
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/* $(1)/usr/bin
 endef

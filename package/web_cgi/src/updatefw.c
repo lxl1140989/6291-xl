@@ -224,11 +224,11 @@ int main(int argc, char const *argv[])
 	system("sync");
 	system("echo 3 >/proc/sys/vm/drop_caches");
 
-	system("echo timer > /sys/class/leds/longsys\:blue\:led/trigger ");
-	system("echo 1000 > /sys/class/leds/longsys\:blue\:led/delay_on ");		
-	system("echo 1000 > /sys/class/leds/longsys\:blue\:led/delay_off ");
+	system("echo timer > /sys/class/leds/system\:led\:red/trigger ");
+	system("echo 1000 > /sys/class/leds/system\:led\:red/delay_on ");		
+	system("echo 1000 > /sys/class/leds/system\:led\:red/delay_off ");
 	
-	system("sysupgrade -F /tmp/fwupgrade &");
+	system("sysupgrade -F -n /tmp/fwupgrade &");
 	
 #if 0
 	system("ifdown -a");

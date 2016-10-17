@@ -220,10 +220,10 @@ default_do_upgrade() {
 	sync
 	if [ "$SAVE_CONFIG" -eq 1 ]; then
 		#get_image "$1" | mtd $MTD_CONFIG_ARGS -j "$CONF_TAR" write - "${PART_NAME:-image}"
-		mtd $MTD_CONFIG_ARGS -j "$CONF_TAR" write "$1" firmware
+		mtd $MTD_CONFIG_ARGS -j "$CONF_TAR" write "$1" firstimage
 	else
 		#get_image "$1" | mtd write - "${PART_NAME:-image}"
-		mtd write "$1" firmware
+		mtd write "$1" firstimage
 	fi
 }
 

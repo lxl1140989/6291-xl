@@ -2,6 +2,8 @@
 . /lib/functions.sh
 . /lib/functions/system.sh
 
+erase_airdiskflag &
+
 # initialize defaults
 RAMFS_COPY_BIN=""	# extra programs for temporary ramfs root
 RAMFS_COPY_DATA=""	# extra data files
@@ -212,7 +214,6 @@ run_hooks "" $sysupgrade_pre_upgrade
 ubus call system upgrade
 touch /tmp/sysupgrade
 
-/etc/init.d/dm_router stop
 if [ ! -f /tmp/failsafe ] ; then
 	kill_remaining TERM
 	sleep 3
