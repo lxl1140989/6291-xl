@@ -35,51 +35,52 @@
 #define CFG_BASE_ADDR	32  			//32KB的数据空间可用
 #define DATA_LEN		32
 
-#define SSID_ADDR		CFG_BASE_ADDR
-#define ENCRYPTION_ADDR	(CFG_BASE_ADDR+DATA_LEN*1)
-#define PASSWORD_ADDR	(CFG_BASE_ADDR+DATA_LEN*2)
-#define IP_ADDR			(CFG_BASE_ADDR+DATA_LEN*3)
-#define DHCP_START_ADDR (CFG_BASE_ADDR+DATA_LEN*4)
-#define DHCP_END_ADDR	(CFG_BASE_ADDR+DATA_LEN*5)
-#define WPA_CIPHER_ADDR	(CFG_BASE_ADDR+DATA_LEN*6)
-#define AIRPLAY_ADDR	(CFG_BASE_ADDR+DATA_LEN*7)
-#define MAC_ADDR	(CFG_BASE_ADDR+DATA_LEN*100)
+#define SSID_ADDR				CFG_BASE_ADDR	
+#define ENCRYPTION_ADDR			(CFG_BASE_ADDR+DATA_LEN*1)
+#define PASSWORD_ADDR			(CFG_BASE_ADDR+DATA_LEN*2)
+#define IP_ADDR					(CFG_BASE_ADDR+DATA_LEN*3)
+#define DHCP_START_ADDR 		(CFG_BASE_ADDR+DATA_LEN*4)
+#define DHCP_END_ADDR			(CFG_BASE_ADDR+DATA_LEN*5)
+#define WPA_CIPHER_ADDR			(CFG_BASE_ADDR+DATA_LEN*6)
+#define AIRPLAY_ADDR			(CFG_BASE_ADDR+DATA_LEN*7)
+#define MAC_ADDR				(CFG_BASE_ADDR+DATA_LEN*100)
 //--------------------add by chengpan-----------------------------
-#define FW_VERSION_ADDR  (CFG_BASE_ADDR+DATA_LEN*8)
+#define FW_VERSION_ADDR  		(CFG_BASE_ADDR+DATA_LEN*8)
 
-#define MODEL_NAME_ADDR  (CFG_BASE_ADDR+DATA_LEN*9)
-#define MODEL_NUMBER_ADDR  (CFG_BASE_ADDR+DATA_LEN*10)
-#define MODEL_DESCRIPTION_ADDR1  (CFG_BASE_ADDR+DATA_LEN*11)
-#define MODEL_DESCRIPTION_ADDR2  (CFG_BASE_ADDR+DATA_LEN*12)
+#define MODEL_NAME_ADDR  		(CFG_BASE_ADDR+DATA_LEN*9)
+#define MODEL_NUMBER_ADDR  		(CFG_BASE_ADDR+DATA_LEN*10)
+#define MODEL_DESCRIPTION_ADDR1	(CFG_BASE_ADDR+DATA_LEN*11)
+#define MODEL_DESCRIPTION_ADDR2	(CFG_BASE_ADDR+DATA_LEN*12)
 
-#define MANUFACTURER_ADDR	  (CFG_BASE_ADDR+DATA_LEN*13)
-#define MANUFACTURER_URL_ADDR1	  (CFG_BASE_ADDR+DATA_LEN*14)
-#define MANUFACTURER_URL_ADDR2	  (CFG_BASE_ADDR+DATA_LEN*15)
+#define MANUFACTURER_ADDR	  	(CFG_BASE_ADDR+DATA_LEN*13)
+#define MANUFACTURER_URL_ADDR1  (CFG_BASE_ADDR+DATA_LEN*14)
+#define MANUFACTURER_URL_ADDR2	(CFG_BASE_ADDR+DATA_LEN*15)
 
-#define SMB_USR_NAMR_ADDR	  (CFG_BASE_ADDR+DATA_LEN*16)
-#define SMB_USR_PWD_ADDR	  (CFG_BASE_ADDR+DATA_LEN*17)
-#define SMB_GUEST_OK_ADDR	  (CFG_BASE_ADDR+DATA_LEN*18)
-#define SMB_ENABLED_ADDR	  (CFG_BASE_ADDR+DATA_LEN*19)
-
-
-#define DMS_NAME_ADDR	  (CFG_BASE_ADDR+DATA_LEN*20)
-#define DMS_ENABLE_ADDR	  (CFG_BASE_ADDR+DATA_LEN*21)
-#define HOST_NAME_ADDR     (CFG_BASE_ADDR+DATA_LEN*22)
+#define SMB_USR_NAMR_ADDR	  	(CFG_BASE_ADDR+DATA_LEN*16)
+#define SMB_USR_PWD_ADDR	  	(CFG_BASE_ADDR+DATA_LEN*17)
+#define SMB_GUEST_OK_ADDR	  	(CFG_BASE_ADDR+DATA_LEN*18)
+#define SMB_ENABLED_ADDR	  	(CFG_BASE_ADDR+DATA_LEN*19)
 
 
+#define DMS_NAME_ADDR	  		(CFG_BASE_ADDR+DATA_LEN*20)
+#define DMS_ENABLE_ADDR	 		(CFG_BASE_ADDR+DATA_LEN*21)
+#define HOST_NAME_ADDR     		(CFG_BASE_ADDR+DATA_LEN*22)
 
-#define DLNA_ADDR	(CFG_BASE_ADDR+DATA_LEN*23)
+#define DLNA_ADDR				(CFG_BASE_ADDR+DATA_LEN*23)
 
-#define VERSION_ADDR	(CFG_BASE_ADDR+DATA_LEN*24)
+#define VERSION_ADDR			(CFG_BASE_ADDR+DATA_LEN*24)
 
-#define REPAIR_AUTO_ADDR	(CFG_BASE_ADDR+DATA_LEN*25)
+#define REPAIR_AUTO_ADDR		(CFG_BASE_ADDR+DATA_LEN*25)
 //length=16
-#define SN_ADDR	(CFG_BASE_ADDR+DATA_LEN*26)
-#define SN_LEN		16
+#define SN_ADDR					(CFG_BASE_ADDR+DATA_LEN*26)
+#define SN_LEN					16
 
 //lenght<256
-#define LICENSE_ADDR	(CFG_BASE_ADDR+DATA_LEN*27)
-#define LICENSE_LEN		256
+#define LICENSE_ADDR			(CFG_BASE_ADDR+DATA_LEN*27)
+#define LICENSE_LEN				256  //32*8
+
+#define ROOT_PWD_ADDR			(CFG_BASE_ADDR+DATA_LEN*35)
+
 //----------------------add end-----------------------------------
 
 //mac ssid encryption password ip dhcp_start dhcp_end wpa_cipher
@@ -120,6 +121,8 @@
 #define SN "qqsn"
 #define LICENSE "license"
 
+#define ROOT_PWD	"root_pwd"
+
 static void usage(void)
 {
 	printf("usage:airdisk config tool\n");
@@ -129,7 +132,7 @@ static void usage(void)
 	printf("	dhcp_end wpa_cipher airplay_name dlna_name fw_version model_name model_number\n");
 	printf("	model_description manufacturer url_manufacturer dms_name dms_enable(1/0)\n");
 	printf("	smb_usr_name smb_usr_pwd smb_guest_ok(yes/no) smb_enabled(1/0)\n");
-	printf("	host_name version_flag repair_auto\n\n");
+	printf("	host_name version_flag repair_auto qqsn license root_pwd\n\n");
 	printf("	set 		: cfg set parameter=value \n");
 	printf("	get 		: cfg get parameter \n");	
 	printf("	****debug version****added by BlackAvengers****\n");	
@@ -579,6 +582,17 @@ int cfg_get(char *argv[])
 		memset(tmp,0,sizeof(tmp));
 		read_mtd(tmp,fp_mtd,LICENSE_ADDR,LICENSE_LEN+8);
 		if(strstr(tmp,LICENSE)!=NULL)
+		{
+			printf("%s",(char *)tmp);
+			printf("\n");
+		}
+	}
+	else if(!strcmp(argv[2],ROOT_PWD))
+	{
+		unsigned char tmp[32];
+		memset(tmp,0,sizeof(tmp));
+		read_mtd(tmp,fp_mtd,ROOT_PWD_ADDR,32);
+		if(strstr(tmp,ROOT_PWD)!=NULL)
 		{
 			printf("%s",(char *)tmp);
 			printf("\n");
@@ -1183,6 +1197,11 @@ int cfg_set(char *argv[])
 				system(license_str);
 			}
 	}
+	else if(!strncmp(ROOT_PWD,argv[2],strlen(ROOT_PWD)))
+	{
+		strcpy(data_str,argv[2]);
+		write_mtd(data_str,fp_mtd,ROOT_PWD_ADDR,strlen(data_str)+1);
+	}
 	else
 	{
 		#if Debug_cfg
@@ -1249,6 +1268,8 @@ static void cfg_list()
 	arg_v[2]="qqsn";
 	cfg_get(arg_v);
 	arg_v[2]="license";
+	cfg_get(arg_v);
+	arg_v[2]="root_pwd";
 	cfg_get(arg_v);
 }
 

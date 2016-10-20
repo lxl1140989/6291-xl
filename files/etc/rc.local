@@ -10,4 +10,6 @@ init_network.sh
 updatefw &
 
 led_ctl &
+
+/etc/init.d/samba restart
 exit 0

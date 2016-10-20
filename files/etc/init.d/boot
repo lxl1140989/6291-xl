@@ -40,19 +40,19 @@ boot() {
 
 	
 
-	mkdir -p /factory
+#	mkdir -p /factory
 #	mkdir -p /user
 
-	mount -t ext4 /dev/mmcblk0p3 /factory
+#	mount -t ext4 /dev/mmcblk0p3 /factory
 #	mount -t ext4 /dev/mmcblk0p3 /user
 	
-	factory_user_set
+#	factory_user_set
 #	mp_disk write
 
 #	echo /dev/mmcblk0p4 >/sys/devices/platform/jz-dwc2/dwc2/gadget/gadget-lun0/file
-	insmod /lib/modules/3.0.8/g_file_storage.ko stall=0 file=/dev/mmcblk0p4 removable=1
+#	insmod /lib/modules/3.0.8/g_file_storage.ko stall=0 file=/dev/mmcblk0p4 removable=1
 
-	load_wifi_module
+#	load_wifi_module
 	
 #	[ -d /mnt/cfg ] || mkdir -p /mnt/cfg
 #	[ -d /mnt/user ] || mkdir -p /mnt/user
