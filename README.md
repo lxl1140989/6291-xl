@@ -21,3 +21,5 @@ make  或者 make V=s (输出编译的详细信息)
 生成的firmware位于 bin/xburst/
 
 烧录文件为6291-nor-16MB.bin，升级文件为6291-nor-update-fw.bin
+
+升级的命令为 sysupgrade -F 6291-nor-update-fw.bin
