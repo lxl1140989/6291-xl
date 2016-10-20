@@ -13,6 +13,7 @@ cd 6291-xl
 tar -zxvf dl.tar.gz
 
 2.编译
+
 cd 6291-xl
 
 make  或者 make V=s (输出编译的详细信息)
