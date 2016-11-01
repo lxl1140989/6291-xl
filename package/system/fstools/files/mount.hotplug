@@ -1,2 +1,2 @@
-usleep 500000
+usleep 1000000
 /sbin/block hotplug
