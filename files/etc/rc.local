@@ -9,7 +9,7 @@ init_network.sh
 
 updatefw &
 
-led_ctl &
+set_to_lan &
 
 /etc/init.d/samba restart
 exit 0

@@ -1332,7 +1332,7 @@ CONFIG_USB_SUSPEND=y
 # CONFIG_USB_TEST is not set
 # CONFIG_USB_TMC is not set
 # CONFIG_USB_TRANCEVIBRATOR is not set
-CONFIG_USB_UAS=y
+# CONFIG_USB_UAS is not set
 # CONFIG_USB_USBNET is not set
 # CONFIG_USB_WDM is not set
 # CONFIG_USB_WUSB is not set

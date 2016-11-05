@@ -46,17 +46,8 @@ define Package/web_cgi/install
 	$(INSTALL_DIR) $(1)/usr/mips/cgi-bin
 	$(INSTALL_DIR) $(1)/bin/
 	$(INSTALL_DIR) $(1)/usr/sbin/
-	#$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/* $(1)/usr/mips/cgi-bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/* $(1)/usr/sbin/
 	
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/cfg $(1)/bin
-
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/updatefw $(1)/usr/sbin/
-
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/erase_boot_flag $(1)/usr/sbin/
-	
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/set_sys_flag $(1)/usr/sbin/
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/led_ctl $(1)/usr/sbin/
-
 	
 endef
 

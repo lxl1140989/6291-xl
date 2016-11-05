@@ -1,6 +1,6 @@
 #TARGET = SysInfo
 
-CFG_TARGET = cfg updatefw nvram_cfg erase_boot_flag set_sys_flag led_ctl
+CFG_TARGET = cfg updatefw set_to_lan led_btn_test
 
 
 
@@ -21,24 +21,14 @@ cfg:cfg.o uci_for_cgi.o
 
 updatefw:updatefw.o uci_for_cgi.o
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ -luci
-
-set_sys_flag:set_sys_flag.o
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
-led_ctl:led_ctl.o
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
-install:
-	mkdir bin
-	cp -f $(TARGET) bin/
-
- 
-.PHONY: clean
-clean:
-	rm -f *.o $(TARGET) $(CFG_TARGET)
+set_to_lan:set_to_lan.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ -luci
+led_btn_test:led_btn_test.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ -luci
 
 install:
 	mkdir bin
-#	cp -f $(TARGET) bin/
-#	-cp -f $(TARGET) $(CFG_TARGET) ~
+	cp -f $(CFG_TARGET) bin/
 
  
 .PHONY: clean
